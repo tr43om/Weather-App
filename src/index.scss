@@ -1,0 +1,301 @@
+// Breakpoints library
+@import "../node_modules/include-media/dist/include-media";
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+
+/*CSS RESET*/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+input {
+  font: inherit;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+/*VARIABLES*/
+:root {
+  --c-primary: 215, 81%, 61%;
+  --c-text: 255, 255, 255;
+}
+
+// Custom breakpoints
+$breakpoints: (
+  tablet: 50em,
+  desktop: 64em,
+);
+
+.container {
+  width: 100%;
+  max-width: 990px;
+  padding: 0 1rem;
+
+  margin-inline: auto;
+  align-items: center;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 6rem;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background-color: hsla(var(--c-primary));
+  color: rgba(var(--c-text));
+  padding-top: 5vh;
+  padding-bottom: 10vh;
+}
+
+.search {
+  position: absolute;
+  top: 0.6rem;
+  left: 1rem;
+  right: 4.5rem;
+
+  @include media(">tablet") {
+    top: 1rem;
+    left: unset;
+    right: unset;
+  }
+
+  &__error {
+    margin-top: 1rem;
+    font-size: 1.3rem;
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  &__input {
+    all: unset;
+    background-color: rgba(255, 255, 255);
+    color: #000;
+    padding: 1rem 1.8rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+
+    &::placeholder {
+      opacity: 0.5;
+
+      font-size: 1rem;
+
+      @include media(">tablet") {
+        font-size: 1.3rem;
+      }
+    }
+
+    @include media(">tablet") {
+      max-width: 38rem;
+      font-size: 1.875rem;
+    }
+  }
+
+  &__submit {
+    all: unset;
+    position: absolute;
+    right: -2.2rem;
+    top: 1.2rem;
+    font-size: 1rem;
+    color: hsla(var(--c-primary));
+    cursor: pointer;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    @include media(">tablet") {
+      font-size: 1.875rem;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.city {
+  &__title {
+    font-size: 1.875rem;
+    font-weight: 400;
+
+    @include media(">tablet") {
+      font-size: 3rem;
+    }
+  }
+
+  &__btns {
+    position: absolute;
+    display: flex;
+    gap: 2rem;
+  }
+  &__btn {
+    all: unset;
+    display: flex;
+    gap: 0.8rem;
+    color: rgba(var(--c-text), 0.6);
+    font-size: 0.9375rem;
+    cursor: pointer;
+    transition: color 0.3s;
+    position: relative;
+
+    @include media(">tablet") {
+      font-size: 1.1rem;
+    }
+
+    path {
+      fill: rgba(var(--c-text), 0.4);
+      transition: all 0.3s;
+    }
+
+    &:hover {
+      color: rgba(var(--c-text), 1);
+
+      path {
+        fill: rgba(var(--c-text), 1);
+      }
+    }
+  }
+}
+
+.units {
+  display: flex;
+  border: 1px solid rgba(var(--c-text), 0.4);
+  border-radius: 8px;
+  position: relative;
+
+  &__wrapper {
+    overflow: hidden;
+  }
+
+  .unit {
+    padding: 0.1rem 0.8rem;
+    color: rgba(var(--c-text), 0.4);
+    transition: all 0.3s;
+
+    &--active {
+      color: rgba(var(--c-text), 1);
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &:not(.unit--active):hover {
+      color: rgba(var(--c-text), 0.6);
+      background-color: rgba(255, 255, 255, 0.07);
+    }
+
+    @include media(">tablet") {
+      padding: 0.3rem 1.2rem;
+    }
+  }
+
+  &::before {
+    content: "°";
+    font-size: 1.2rem;
+    color: rgba(var(--c-text), 0.4);
+    position: absolute;
+    left: -1rem;
+  }
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  .temperature {
+    font-family: "PT Sans", sans-serif;
+    &__wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    &__number {
+      font-size: 3.5rem;
+
+      @include media(">tablet") {
+        font-size: 7rem;
+      }
+    }
+
+    &__description {
+      font-size: 1rem;
+
+      @include media(">tablet") {
+        font-size: 1.5rem;
+        margin-top: -1.4rem;
+      }
+    }
+
+    &__image {
+      max-width: 5.5rem;
+      max-height: 5.5rem;
+
+      @include media(">tablet") {
+        max-width: 8.75rem;
+        max-height: 8.75rem;
+      }
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+
+  .weather {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    @include media(">tablet") {
+      flex-wrap: nowrap;
+    }
+
+    & > * {
+      flex-basis: 45%;
+    }
+
+    &__title {
+      font-size: 1rem;
+      color: rgba(var(--c-text), 0.4);
+
+      @include media(">tablet") {
+        font-size: 1.2rem;
+      }
+    }
+
+    &__info {
+      font-size: 1.2rem;
+
+      @include media(">tablet") {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
